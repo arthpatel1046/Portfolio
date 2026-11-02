@@ -1,3 +1,101 @@
+@use 'styles/mixins' as *;
+
 :host {
   display: block;
+}
+
+// A vertical rail with a dot per entry. The three variables keep rail and dots aligned.
+.timeline {
+  --rail-x: 0.5rem;
+  --indent: var(--space-6);
+  --dot: 0.9rem;
+
+  position: relative;
+  display: grid;
+  gap: var(--space-6);
+  margin: 0;
+  padding: 0 0 0 var(--indent);
+  list-style: none;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: var(--space-2);
+    bottom: var(--space-2);
+    left: calc(var(--rail-x) - 1px);
+    width: 2px;
+    border-radius: 2px;
+    background: linear-gradient(to bottom, var(--color-violet), transparent);
+  }
+
+  @include up('md') {
+    --rail-x: 1rem;
+    --indent: var(--space-8);
+  }
+}
+
+.timeline__item {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: calc(var(--space-6) + 0.35rem);
+    left: calc(var(--rail-x) - var(--indent) - var(--dot) / 2);
+    width: var(--dot);
+    height: var(--dot);
+    border: 2px solid var(--color-violet-bright);
+    border-radius: 50%;
+    background: var(--color-bg);
+    box-shadow: 0 0 16px var(--color-glow);
+  }
+}
+
+.entry__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-5);
+  margin-bottom: var(--space-4);
+}
+
+.entry__company {
+  color: var(--color-lavender);
+  font-weight: 600;
+}
+
+.entry__dates {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.entry__summary {
+  margin-bottom: var(--space-4);
+  color: var(--color-text-muted);
+}
+
+.entry__highlights {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0 0 var(--space-5);
+  padding: 0;
+  list-style: none;
+
+  li {
+    position: relative;
+    padding-left: var(--space-5);
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0.7em;
+      left: 0;
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+      background: var(--color-violet-bright);
+    }
+  }
 }

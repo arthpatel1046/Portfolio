@@ -1,0 +1,155 @@
+@use 'mixins' as *;
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+.section {
+  position: relative;
+  padding-block: var(--section-padding-y);
+}
+
+// Eyebrow + h2 block that opens every section.
+.section-heading {
+  display: grid;
+  gap: var(--space-3);
+  margin-bottom: clamp(2rem, 1rem + 4vw, 4rem);
+}
+
+.glass {
+  @include glass;
+}
+
+.sr-only {
+  @include visually-hidden;
+}
+
+// First Tab stop on the page: hidden until focused.
+.skip-link {
+  @include visually-hidden;
+
+  &:focus-visible {
+    position: fixed;
+    top: var(--space-4);
+    left: var(--space-4);
+    z-index: var(--z-skip);
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: var(--space-3) var(--space-5);
+    overflow: visible;
+    clip-path: none;
+    white-space: normal;
+    background: var(--color-violet);
+    color: var(--color-text);
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    outline-offset: 2px;
+  }
+}
+
+// ── Buttons (links or <button>) ────────────────────────────
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 3rem;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out),
+    background-color var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out);
+
+  // Solid #7C3AED keeps white text at ~5.5:1; hover adds glow instead of lightening the fill.
+  &--primary {
+    background: var(--color-violet);
+    color: var(--color-text);
+  }
+
+  &--ghost {
+    background: var(--color-glass);
+    border-color: var(--color-glass-border);
+    color: var(--color-text);
+  }
+
+  @include fine-pointer {
+    &:hover {
+      transform: translateY(-2px);
+    }
+
+    &--primary:hover {
+      box-shadow: var(--shadow-glow);
+    }
+
+    &--ghost:hover {
+      background: var(--color-glass-hover);
+      border-color: rgba(196, 181, 253, 0.5);
+    }
+  }
+}
+
+
+// ── Cursor spotlight ───────────────────────────────────────
+// Added by the arthSpotlight directive, which sets --mx / --my on the element.
+.has-spotlight {
+  position: relative;
+  isolation: isolate;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: radial-gradient(
+      20rem circle at var(--mx, 50%) var(--my, 50%),
+      rgba(196, 181, 253, 0.18),
+      transparent 65%
+    );
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--dur-base) var(--ease-out);
+  }
+
+  @include fine-pointer {
+    &:hover::before {
+      opacity: 1;
+    }
+  }
+}
+
+
+// ── Chips (skills, technologies, tags) ─────────────────────
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid var(--color-glass-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-glass);
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  line-height: 1.4;
+}

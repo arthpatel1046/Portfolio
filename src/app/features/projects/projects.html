@@ -1,1 +1,23 @@
-<p>projects works!</p>
+<section class="showcase section" aria-labelledby="projects-title">
+  <div class="showcase__top">
+    <header class="section-heading showcase__heading" arthReveal>
+      <p class="eyebrow">Featured projects</p>
+      <h2 id="projects-title">Selected <span class="text-gradient">work</span></h2>
+    </header>
+
+    <div class="showcase__hint" aria-hidden="true">
+      <span>Scroll to explore</span>
+      <span class="showcase__progress"><span class="showcase__progress-bar"></span></span>
+    </div>
+  </div>
+
+  <div class="showcase__viewport">
+    <ul class="showcase__track" role="list">
+      @for (project of projects; track project.id) {
+        <li class="showcase__item" arthReveal [arthRevealDelay]="$index * 0.08">
+          <arth-project-card [project]="project" [index]="$index" />
+        </li>
+      }
+    </ul>
+  </div>
+</section>

@@ -1,3 +1,60 @@
+@use 'styles/mixins' as *;
+
 :host {
   display: block;
+}
+
+.about__grid {
+  display: grid;
+  align-items: start;
+  gap: var(--space-8);
+
+  @include up('lg') {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    gap: var(--space-9);
+  }
+}
+
+.about__paragraph {
+  max-width: 60ch;
+  color: var(--color-text-muted);
+  font-size: var(--text-lg);
+
+  & + & {
+    margin-top: var(--space-5);
+  }
+}
+
+.about__facts-title {
+  margin-bottom: var(--space-5);
+}
+
+.facts {
+  display: grid;
+  gap: var(--space-4);
+  margin: 0;
+}
+
+.facts__row {
+  display: grid;
+  gap: var(--space-1);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--color-glass-border);
+
+  &:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+}
+
+.facts dt {
+  color: var(--color-lavender);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.facts dd {
+  margin: 0;
 }

@@ -1,1 +1,46 @@
-<p>navbar works!</p>
+<header class="bar">
+  <div class="container bar__inner">
+    <a
+      class="brand"
+      [href]="'#' + homeId"
+      [attr.aria-label]="profile.name + ', back to top'"
+      (click)="onLinkClick($event, homeId)"
+    >
+      <span class="brand__mark" aria-hidden="true">{{ profile.initials }}</span>
+      <span class="brand__name">{{ profile.name }}</span>
+    </a>
+
+    <button
+      #toggle
+      class="menu-toggle"
+      type="button"
+      aria-label="Menu"
+      aria-controls="site-menu"
+      [attr.aria-expanded]="menuOpen()"
+      (click)="toggleMenu()"
+    >
+      @if (menuOpen()) {
+        <svg lucideX [size]="22" aria-hidden="true"></svg>
+      } @else {
+        <svg lucideMenu [size]="22" aria-hidden="true"></svg>
+      }
+    </button>
+
+    <nav id="site-menu" class="menu" [class.is-open]="menuOpen()" aria-label="Primary">
+      <ul class="menu__list" role="list">
+        @for (item of items; track item.id) {
+          <li>
+            <a
+              class="menu__link"
+              [class.menu__link--cta]="item.cta"
+              [href]="'#' + item.id"
+              [attr.aria-current]="spy.activeId() === item.id ? 'location' : null"
+              (click)="onLinkClick($event, item.id)"
+              >{{ item.label }}</a
+            >
+          </li>
+        }
+      </ul>
+    </nav>
+  </div>
+</header>

@@ -1,3 +1,186 @@
+@use 'styles/mixins' as *;
+
 :host {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: var(--z-nav);
   display: block;
+}
+
+.bar {
+  height: var(--nav-height);
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out);
+}
+
+// Transparent at the top of the page; frosted glass once the page has scrolled.
+:host(.is-scrolled) .bar {
+  background: color-mix(in srgb, var(--color-bg) 62%, transparent);
+  border-bottom-color: var(--color-glass-border);
+  -webkit-backdrop-filter: blur(var(--blur-glass)) saturate(140%);
+  backdrop-filter: blur(var(--blur-glass)) saturate(140%);
+}
+
+.bar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  height: 100%;
+}
+
+// ── Brand ──────────────────────────────────────────────────
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+  text-decoration: none;
+
+  &__mark {
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius-sm);
+    background: var(--color-violet); // white on #7C3AED ≈ 5.5:1
+    color: var(--color-text);
+    font-size: var(--text-sm);
+    letter-spacing: 0.02em;
+    box-shadow: 0 0 24px var(--color-glow);
+  }
+
+  &__name {
+    @include down('sm') {
+      display: none;
+    }
+  }
+}
+
+// ── Mobile menu button (44px touch target) ─────────────────
+.menu-toggle {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--color-glass-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-glass);
+  color: var(--color-text);
+  transition: background-color var(--dur-fast) var(--ease-out);
+
+  &:hover {
+    background: var(--color-glass-hover);
+  }
+
+  @include up('lg') {
+    display: none;
+  }
+}
+
+// ── Menu: dropdown panel on mobile, inline row on desktop ──
+.menu {
+  @include glass;
+  position: absolute;
+  top: calc(100% + var(--space-2));
+  left: var(--container-pad);
+  right: var(--container-pad);
+  padding: var(--space-3);
+  background: color-mix(in srgb, var(--color-surface) 90%, transparent);
+  opacity: 0;
+  visibility: hidden; // closed menu is removed from the tab order and from screen readers
+  transform: translateY(-0.5rem);
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out),
+    visibility 0s linear var(--dur-base);
+
+  &.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition:
+      opacity var(--dur-base) var(--ease-out),
+      transform var(--dur-base) var(--ease-out),
+      visibility 0s;
+  }
+
+  @include up('lg') {
+    position: static;
+    padding: 0;
+    background: none;
+    border: 0;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: none;
+  }
+}
+
+.menu__list {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  @include up('lg') {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+}
+
+.menu__link {
+  display: block;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  font-weight: 500;
+  text-decoration: none;
+  transition:
+    color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out);
+
+  &:hover {
+    color: var(--color-text);
+    background: var(--color-glass-hover);
+  }
+
+  &[aria-current='location'] {
+    color: var(--color-lavender);
+    background: var(--color-glass);
+  }
+
+  &--cta {
+    margin-top: var(--space-2);
+    background: var(--color-violet);
+    color: var(--color-text);
+    font-weight: 600;
+    text-align: center;
+
+    &:hover,
+    &[aria-current='location'] {
+      background: var(--color-violet);
+      color: var(--color-text);
+      box-shadow: var(--shadow-glow);
+    }
+
+    @include up('lg') {
+      margin-top: 0;
+      margin-left: var(--space-2);
+      padding-inline: var(--space-5);
+      border-radius: var(--radius-pill);
+    }
+  }
 }

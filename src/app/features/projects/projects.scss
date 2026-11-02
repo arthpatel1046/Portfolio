@@ -1,3 +1,115 @@
+@use 'styles/mixins' as *;
+
 :host {
   display: block;
+}
+
+// ── Default layout: heading, then a responsive grid ────────
+.showcase__top,
+.showcase__viewport {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+.showcase__hint {
+  display: none;
+}
+
+.showcase__progress {
+  display: none;
+  width: 12rem;
+  height: 2px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: var(--color-glass-border);
+}
+
+.showcase__progress-bar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--gradient-violet);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.showcase__track {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  gap: var(--space-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.showcase__item {
+  display: grid;
+}
+
+// ── Horizontal layout: the class is added by the gallery code while the pin is active ──
+:host(.is-horizontal) {
+  // Read by the project cards inside.
+  --cover-height: clamp(6.5rem, 17vh, 11rem);
+  --card-lines: 5;
+
+  // Anchor links land exactly where the pin starts (the pinned section already clears the navbar itself).
+  scroll-margin-top: calc(-1 * (var(--nav-height) + var(--space-4)));
+
+  .showcase {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    height: 100svh;
+    padding-block: calc(var(--nav-height) + var(--space-4)) var(--space-5);
+    overflow: clip;
+  }
+
+  .showcase__top {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-6);
+  }
+
+  .showcase__heading {
+    margin-bottom: var(--space-5);
+  }
+
+  .showcase__hint {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-5);
+    color: var(--color-text-muted);
+    font-size: var(--text-xs);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .showcase__progress {
+    display: block;
+  }
+
+  .showcase__viewport {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  // Starts level with the page's text edge, runs off the right side of the screen.
+  .showcase__track {
+    display: flex;
+    width: max-content;
+    gap: var(--space-6);
+    padding-inline: max(var(--container-pad), calc((100vw - var(--container-max)) / 2 + var(--container-pad)));
+    will-change: transform;
+  }
+
+  .showcase__item {
+    flex: none;
+    width: clamp(20rem, 30vw, 27rem);
+  }
 }

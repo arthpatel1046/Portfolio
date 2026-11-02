@@ -1,0 +1,15 @@
+@use 'mixins' as *;
+
+// Safety net: anyone who asks their OS for reduced motion gets no CSS animation or transition.
+// GSAP is handled separately: the Motion service (Milestone 4) reads the same preference.
+@include reduced-motion {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+}

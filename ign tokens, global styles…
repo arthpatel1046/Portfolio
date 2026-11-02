@@ -1,0 +1,24 @@
+[33mcommit 66aa5134fb3e76e7eafdcbb7d97fac7a8869524a[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeat/m3-navbar-hero[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m, [m[1;32mfeat/m2-global-styles[m[33m)[m
+Merge: ad519c0 15bf4b4
+Author: Arth Patel <arthpatel1046@gmail.com>
+Date:   Fri Oct 30 10:19:56 2026 +0530
+
+    Merge branch 'main' of https://github.com/arthpatel1046/Portfolio
+
+[33mcommit 15bf4b4f2959aba18f2620198a8927de3f51aefe[m
+Author: ARTH PATEL <arthpatel1046@gmail.com>
+Date:   Thu Oct 29 18:26:49 2026 +0530
+
+    Initial commit
+
+[33mcommit ad519c000fe2a91f56d6d8f6be7f90ec88f2323c[m
+Author: Arth Patel <arthpatel1046@gmail.com>
+Date:   Thu Oct 29 18:15:56 2026 +0530
+
+    feat: scaffold Angular 22 workspace and wire section shell
+
+[33mcommit c3838f9ecf6dcccd04c31ceb76e4ff8b518f71c9[m
+Author: Arth Patel <arthpatel1046@gmail.com>
+Date:   Thu Oct 29 17:58:17 2026 +0530
+
+    initial commit

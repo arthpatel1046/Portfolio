@@ -1,3 +1,22 @@
+@use 'styles/mixins' as *;
+
 :host {
+  @include glass;
   display: block;
+  padding: var(--space-6);
+  transition: border-color var(--dur-base) var(--ease-out);
+
+  @include fine-pointer {
+    &:hover {
+      border-color: rgba(196, 181, 253, 0.32);
+    }
+  }
+
+  // Blurring a moving background is expensive on phones: use a denser, blur-free surface there.
+  @include down('md') {
+    padding: var(--space-5);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: color-mix(in srgb, var(--color-surface) 82%, transparent);
+  }
 }

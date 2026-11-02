@@ -1,1 +1,76 @@
-<p>fluid-background works!</p>
+<!-- Depth 1 (slowest): soft violet gradients -->
+<div class="layer" data-depth="6">
+  <div class="blob blob--1"></div>
+  <div class="blob blob--2"></div>
+  <div class="blob blob--3"></div>
+</div>
+
+<!-- Depth 2: wide silk ribbon -->
+<div class="layer" data-depth="14">
+  <svg class="ribbon ribbon--a" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" focusable="false">
+    <defs>
+      <linearGradient id="silk-a-fill" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" style="stop-color: var(--color-violet); stop-opacity: 0" />
+        <stop offset="0.35" style="stop-color: var(--color-violet); stop-opacity: 0.5" />
+        <stop offset="0.7" style="stop-color: var(--color-violet-bright); stop-opacity: 0.4" />
+        <stop offset="1" style="stop-color: var(--color-lavender); stop-opacity: 0" />
+      </linearGradient>
+      <linearGradient id="silk-a-edge" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" style="stop-color: var(--color-lavender); stop-opacity: 0" />
+        <stop offset="0.5" style="stop-color: var(--color-lavender); stop-opacity: 0.7" />
+        <stop offset="1" style="stop-color: var(--color-lavender); stop-opacity: 0" />
+      </linearGradient>
+    </defs>
+    <path
+      fill="url(#silk-a-fill)"
+      d="M-100 620 C200 520 420 760 700 640 S1200 380 1540 300 L1540 420 C1200 520 960 780 700 760 S220 640 -100 760 Z"
+    />
+    <path
+      id="silk-a-line"
+      fill="none"
+      stroke="url(#silk-a-edge)"
+      stroke-width="1.5"
+      d="M-100 620 C200 520 420 760 700 640 S1200 380 1540 300"
+    />
+    <use href="#silk-a-line" transform="translate(0 16)" opacity="0.7" />
+    <use href="#silk-a-line" transform="translate(0 32)" opacity="0.5" />
+    <use href="#silk-a-line" transform="translate(0 48)" opacity="0.35" />
+    <use href="#silk-a-line" transform="translate(0 64)" opacity="0.2" />
+  </svg>
+</div>
+
+<!-- Depth 3 (fastest): thin ribbon crossing the other way -->
+<div class="layer" data-depth="24">
+  <svg class="ribbon ribbon--b" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" focusable="false">
+    <defs>
+      <linearGradient id="silk-b-fill" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" style="stop-color: var(--color-lavender); stop-opacity: 0" />
+        <stop offset="0.4" style="stop-color: var(--color-violet-bright); stop-opacity: 0.4" />
+        <stop offset="0.8" style="stop-color: var(--color-violet); stop-opacity: 0.35" />
+        <stop offset="1" style="stop-color: var(--color-violet); stop-opacity: 0" />
+      </linearGradient>
+      <linearGradient id="silk-b-edge" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" style="stop-color: var(--color-lavender); stop-opacity: 0" />
+        <stop offset="0.5" style="stop-color: var(--color-lavender); stop-opacity: 0.6" />
+        <stop offset="1" style="stop-color: var(--color-lavender); stop-opacity: 0" />
+      </linearGradient>
+    </defs>
+    <path
+      fill="url(#silk-b-fill)"
+      d="M-120 180 C180 260 360 60 640 150 S1120 380 1560 260 L1560 330 C1120 450 900 250 640 220 S180 330 -120 250 Z"
+    />
+    <path
+      id="silk-b-line"
+      fill="none"
+      stroke="url(#silk-b-edge)"
+      stroke-width="1.5"
+      d="M-120 180 C180 260 360 60 640 150 S1120 380 1560 260"
+    />
+    <use href="#silk-b-line" transform="translate(0 12)" opacity="0.6" />
+    <use href="#silk-b-line" transform="translate(0 24)" opacity="0.4" />
+    <use href="#silk-b-line" transform="translate(0 36)" opacity="0.25" />
+  </svg>
+</div>
+
+<div class="light"></div>
+<div class="vignette"></div>

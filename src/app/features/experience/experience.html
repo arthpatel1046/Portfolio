@@ -1,1 +1,42 @@
-<p>experience works!</p>
+<section class="section" aria-labelledby="experience-title">
+  <div class="container">
+    <header class="section-heading" arthReveal>
+      <p class="eyebrow">Professional experience</p>
+      <h2 id="experience-title">Where I've <span class="text-gradient">worked</span></h2>
+    </header>
+
+    <ol class="timeline" role="list">
+      @for (entry of entries; track entry.id) {
+        <li class="timeline__item">
+          <arth-glass-card arthReveal>
+            <header class="entry__header">
+              <div>
+                <h3 class="entry__role">{{ entry.role }}</h3>
+                <p class="entry__company">{{ entry.company }}</p>
+              </div>
+              <p class="entry__dates">{{ entry.start }}@if (entry.end) { – {{ entry.end }} }</p>
+            </header>
+
+            <p class="entry__summary">{{ entry.summary }}</p>
+
+            @if (entry.highlights.length > 0) {
+              <ul class="entry__highlights" role="list">
+                @for (highlight of entry.highlights; track highlight) {
+                  <li>{{ highlight }}</li>
+                }
+              </ul>
+            }
+
+            @if (entry.technologies.length > 0) {
+              <ul class="chips" role="list">
+                @for (technology of entry.technologies; track technology) {
+                  <li class="chip">{{ technology }}</li>
+                }
+              </ul>
+            }
+          </arth-glass-card>
+        </li>
+      }
+    </ol>
+  </div>
+</section>

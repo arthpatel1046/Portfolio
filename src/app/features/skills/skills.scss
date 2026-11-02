@@ -1,3 +1,28 @@
 :host {
   display: block;
 }
+
+// min(100%, 20rem) lets a column shrink to the container on very narrow screens
+// (320px wide, or 400% zoom) instead of overflowing it.
+.skills__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  gap: var(--space-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+// Grid items stretch, so every card in a row has the same height.
+.skills__item {
+  display: grid;
+}
+
+.skills__title {
+  margin-bottom: var(--space-2);
+}
+
+.skills__description {
+  margin-bottom: var(--space-4);
+  font-size: var(--text-sm);
+}

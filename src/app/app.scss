@@ -1,0 +1,18 @@
+// Component styles are scoped to this component by Angular (emulated view encapsulation).
+:host {
+  display: block;
+  position: relative;
+  min-height: 100dvh;
+}
+
+// Content sits above the fixed fluid background.
+main {
+  position: relative;
+  z-index: var(--z-content);
+}
+
+// Sections and <main> are scroll/focus targets, not controls: no focus outline on them.
+main:focus,
+main > [tabindex='-1']:focus {
+  outline: none;
+}

@@ -1,1 +1,12 @@
-<p>footer works!</p>
+<footer class="footer">
+  <div class="container footer__inner">
+    <p class="footer__copy">© {{ year }} {{ profile.name }}. Built with Angular.</p>
+
+    <arth-social-links />
+
+    <a class="footer__top" href="#home" (click)="spy.goTo(homeId, $event)">
+      Back to top
+      <svg lucideArrowUp [size]="16" aria-hidden="true"></svg>
+    </a>
+  </div>
+</footer>

@@ -1,1 +1,26 @@
-<p>about works!</p>
+<section class="section" aria-labelledby="about-title">
+  <div class="container about__grid">
+    <div>
+      <header class="section-heading" arthReveal>
+        <p class="eyebrow">About me</p>
+        <h2 id="about-title">Turning complex products into <span class="text-gradient">simple interfaces</span></h2>
+      </header>
+
+      @for (paragraph of about.paragraphs; track $index) {
+        <p class="about__paragraph" arthReveal [arthRevealDelay]="0.1 * ($index + 1)">{{ paragraph }}</p>
+      }
+    </div>
+
+    <arth-glass-card arthReveal [arthRevealDelay]="0.2">
+      <h3 class="about__facts-title">Quick facts</h3>
+      <dl class="facts">
+        @for (fact of about.facts; track fact.label) {
+          <div class="facts__row">
+            <dt>{{ fact.label }}</dt>
+            <dd>{{ fact.value }}</dd>
+          </div>
+        }
+      </dl>
+    </arth-glass-card>
+  </div>
+</section>

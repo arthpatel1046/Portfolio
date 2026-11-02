@@ -1,0 +1,42 @@
+// Rules for people whose system asks for something other than the default look.
+// Everything here is built on the design tokens, so no component needs to change.
+
+// ── "Increase contrast" (macOS, Windows, Android) ──────────
+// Stronger text and borders, and no decorative background behind the content.
+@media (prefers-contrast: more) {
+  :root {
+    --color-text-muted: #d5dae5; // ≈ 14:1 on the page background
+    --color-glass: rgba(255, 255, 255, 0.1);
+    --color-glass-hover: rgba(255, 255, 255, 0.16);
+    --color-glass-border: rgba(255, 255, 255, 0.45);
+  }
+
+  arth-fluid-background {
+    display: none;
+  }
+}
+
+// ── Windows High Contrast / forced colors ──────────────────
+// The browser replaces our colours with a fixed system palette and drops background
+// images, so anything drawn only with backgrounds needs an explicit system colour.
+// (Transparent borders, used by .btn and others, are drawn automatically in this mode.)
+@media (forced-colors: active) {
+  .text-gradient,
+  .principles__number {
+    background: none !important;
+    -webkit-background-clip: border-box !important;
+    background-clip: border-box !important;
+    color: CanvasText !important;
+  }
+
+  .entry__highlights li::before,
+  .timeline::before {
+    forced-color-adjust: none;
+    background: CanvasText !important;
+  }
+
+  .showcase__progress-bar {
+    forced-color-adjust: none;
+    background: Highlight !important;
+  }
+}

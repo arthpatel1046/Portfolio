@@ -1,3 +1,131 @@
+@use 'styles/mixins' as *;
+
+// A fixed, non-interactive layer behind the page. contain: strict tells the browser
+// nothing in here can affect layout elsewhere, which keeps scrolling cheap.
 :host {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-bg);
   display: block;
+  overflow: hidden;
+  pointer-events: none;
+  contain: strict;
+}
+
+// Taller than the screen so parallax movement never reveals an edge.
+.layer {
+  position: absolute;
+  inset: -25% 0;
+  will-change: transform;
+}
+
+// ── Layer 1: organic gradients ─────────────────────────────
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  animation: drift 26s var(--ease-in-out) infinite alternate;
+
+  &--1 {
+    top: 8%;
+    left: -18vmax;
+    width: 62vmax;
+    height: 62vmax;
+    background: radial-gradient(closest-side, color-mix(in srgb, var(--color-violet) 40%, transparent), transparent);
+  }
+
+  &--2 {
+    top: 38%;
+    right: -22vmax;
+    width: 58vmax;
+    height: 58vmax;
+    background: radial-gradient(closest-side, color-mix(in srgb, var(--color-violet-bright) 30%, transparent), transparent);
+    animation-duration: 32s;
+    animation-delay: -9s;
+  }
+
+  &--3 {
+    bottom: 4%;
+    left: 18vmax;
+    width: 50vmax;
+    height: 50vmax;
+    background: radial-gradient(closest-side, color-mix(in srgb, var(--color-lavender) 18%, transparent), transparent);
+    animation-duration: 38s;
+    animation-delay: -16s;
+  }
+}
+
+@keyframes drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(6vmax, -4vmax, 0) scale(1.12);
+  }
+}
+
+// ── Layers 2 and 3: silk ribbons ───────────────────────────
+.ribbon {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  animation: sway 22s var(--ease-in-out) infinite alternate;
+
+  &--b {
+    animation-duration: 30s;
+    animation-direction: alternate-reverse;
+  }
+}
+
+@keyframes sway {
+  from {
+    transform: translate3d(-1.5%, 1%, 0) rotate(-0.6deg);
+  }
+  to {
+    transform: translate3d(1.5%, -2%, 0) rotate(0.6deg);
+  }
+}
+
+// ── Cursor light (mouse-like pointers, motion allowed) ─────
+.light {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  width: 44rem;
+  height: 44rem;
+  margin: -22rem 0 0 -22rem;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--color-violet-bright) 24%, transparent), transparent);
+  opacity: 0; // faded in by GSAP on the first pointer move
+  will-change: transform;
+
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    display: block;
+  }
+}
+
+// Darkens the edges so text over the ribbons stays readable.
+.vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 80% 70% at 50% 40%,
+    transparent 30%,
+    color-mix(in srgb, var(--color-bg) 85%, transparent) 100%
+  );
+}
+
+// Tab in the background: stop the CSS animations.
+:host(.is-paused) * {
+  animation-play-state: paused !important;
+}
+
+
+// Phones: a static composition. The drifting animation costs battery and adds little on a small screen.
+@include down('md') {
+  .blob,
+  .ribbon {
+    animation: none;
+  }
 }

@@ -1,21 +1,30 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+
 import { GlassCard } from './glass-card';
 
+@Component({
+  imports: [GlassCard],
+  template: `<arth-glass-card><p>Inside</p></arth-glass-card>`,
+})
+class TestHost {}
+
 describe('GlassCard', () => {
-  let component: GlassCard;
-  let fixture: ComponentFixture<GlassCard>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [GlassCard],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(GlassCard);
-    component = fixture.componentInstance;
+  async function render(): Promise<HTMLElement> {
+    await TestBed.configureTestingModule({ imports: [TestHost] }).compileComponents();
+    const fixture = TestBed.createComponent(TestHost);
+    fixture.detectChanges();
     await fixture.whenStable();
+    return fixture.nativeElement as HTMLElement;
+  }
+
+  it('projects its content', async () => {
+    const host = await render();
+    expect(host.querySelector('arth-glass-card p')?.textContent).toBe('Inside');
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('carries the spotlight styling hook from its host directive', async () => {
+    const host = await render();
+    expect(host.querySelector('arth-glass-card')?.classList.contains('has-spotlight')).toBe(true);
   });
 });

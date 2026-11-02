@@ -1,1 +1,66 @@
-<p>project-card works!</p>
+<arth-glass-card class="card" arthTilt>
+  <div class="card__cover" [style.--cover-angle]="coverAngle() + 'deg'">
+    @if (project().image; as image) {
+      <img
+        [src]="image.src"
+        [alt]="image.alt"
+        [attr.width]="image.width"
+        [attr.height]="image.height"
+        loading="lazy"
+        decoding="async"
+      />
+    } @else {
+      <span class="card__initials" aria-hidden="true">{{ initials() }}</span>
+    }
+  </div>
+
+  <div class="card__body">
+    @if (project().year || project().role) {
+      <p class="card__meta">
+        @if (project().year) {
+          <span>{{ project().year }}</span>
+        }
+        @if (project().role) {
+          <span>{{ project().role }}</span>
+        }
+      </p>
+    }
+
+    <h3 class="card__title">{{ project().title }}</h3>
+    <p class="card__tagline">{{ project().tagline }}</p>
+    <p class="card__description">{{ project().description }}</p>
+
+    @if (project().tags.length > 0) {
+      <ul class="chips" role="list">
+        @for (tag of project().tags; track tag) {
+          <li class="chip">{{ tag }}</li>
+        }
+      </ul>
+    }
+
+    <div class="card__footer">
+      @if (project().links.length > 0) {
+        <ul class="card__links" role="list">
+          @for (link of project().links; track link.url) {
+            <li>
+              <a class="card__link" [href]="link.url" target="_blank" rel="noopener noreferrer">
+                {{ link.label }}
+                <span class="sr-only">(opens in a new tab)</span>
+                @if (link.kind === 'source') {
+                  <svg lucideCode [size]="16" aria-hidden="true"></svg>
+                } @else {
+                  <svg lucideArrowUpRight [size]="16" aria-hidden="true"></svg>
+                }
+              </a>
+            </li>
+          }
+        </ul>
+      } @else if (project().note) {
+        <p class="card__note">
+          <svg lucideLock [size]="16" aria-hidden="true"></svg>
+          {{ project().note }}
+        </p>
+      }
+    </div>
+  </div>
+</arth-glass-card>

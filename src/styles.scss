@@ -1,1 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+// Global entry point. Loaded once by the build (see "styles" in angular.json).
+// Order matters: tokens first, then reset, typography, utilities, accessibility overrides;
+// motion last so it can override everything.
+@use 'styles/tokens';
+@use 'styles/reset';
+@use 'styles/typography';
+@use 'styles/utilities';
+@use 'styles/a11y';
+@use 'styles/motion';

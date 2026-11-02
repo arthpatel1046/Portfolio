@@ -1,9 +1,16 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+
+import { ABOUT } from '../../data/about.data';
+import { GlassCard } from '../../shared/components/glass-card/glass-card';
+import { Reveal } from '../../shared/directives/reveal';
 
 @Component({
-  imports: [],
   selector: 'arth-about',
-  styleUrl: './about.scss',
+  imports: [GlassCard, Reveal],
   templateUrl: './about.html',
+  styleUrl: './about.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class About {}
+export class About {
+  protected readonly about = ABOUT;
+}

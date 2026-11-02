@@ -1,3 +1,32 @@
 :host {
   display: block;
+  --social-justify: center;
+}
+
+.contact__card {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-5);
+  padding: clamp(2rem, 1rem + 6vw, 5rem);
+  text-align: center;
+}
+
+.contact__title {
+  font-size: var(--text-3xl);
+}
+
+.contact__lead {
+  max-width: 40rem;
+}
+
+.contact__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-4);
+}
+
+.contact__details {
+  font-size: var(--text-sm);
+  overflow-wrap: anywhere;
 }

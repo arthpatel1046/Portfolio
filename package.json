@@ -7,7 +7,9 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "check:links": "node scripts/check-links.mjs",
+    "verify": "ng lint && ng test --no-watch && ng build"
   },
   "private": true,
   "packageManager": "npm@11.20.0",
@@ -18,6 +20,8 @@
     "@angular/forms": "^22.2.0",
     "@angular/platform-browser": "^22.2.0",
     "@angular/router": "^22.2.0",
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource-variable/space-grotesk": "^5.3.0",
     "@lucide/angular": "^1.64.0",
     "gsap": "^3.15.0",
     "rxjs": "~7.8.0",

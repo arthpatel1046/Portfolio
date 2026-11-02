@@ -1,1 +1,24 @@
-<p>contact works!</p>
+<section class="section" aria-labelledby="contact-title">
+  <div class="container">
+    <arth-glass-card class="contact__card" arthReveal>
+      <p class="eyebrow">Contact</p>
+      <h2 id="contact-title" class="contact__title">Let's build something <span class="text-gradient">together</span></h2>
+      <p class="lead contact__lead">Have a project, a role or a question about my work? I'd like to hear from you.</p>
+
+      <div class="contact__actions">
+        <a class="btn btn--primary" arthSpotlight [href]="'mailto:' + profile.email">
+          <svg lucideMail [size]="18" aria-hidden="true"></svg>
+          Email me
+        </a>
+        <a class="btn btn--ghost" arthSpotlight [href]="profile.resume.url" [attr.download]="profile.resume.fileName">
+          <svg lucideDownload [size]="18" aria-hidden="true"></svg>
+          Download résumé
+        </a>
+      </div>
+
+      <arth-social-links />
+
+      <p class="contact__details text-muted">{{ profile.email }} · {{ profile.location }}</p>
+    </arth-glass-card>
+  </div>
+</section>
