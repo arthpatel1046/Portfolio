@@ -14,7 +14,7 @@ export class Reveal {
   readonly delay = input(0, { alias: 'arthRevealDelay', transform: numberAttribute });
 
   /** Optional vertical parallax offset in pixels scrubbed across the viewport. */
-  readonly parallax = input(0, { alias: 'arthParallax', transform: numberAttribute });
+  readonly arthParallax = input(0, { transform: numberAttribute });
 
   private readonly element = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
   private readonly motion = inject(Motion);
@@ -52,7 +52,7 @@ export class Reveal {
           },
         );
 
-        const shift = this.parallax();
+        const shift = this.arthParallax();
         if (shift !== 0) {
           gsap.fromTo(
             this.element,
