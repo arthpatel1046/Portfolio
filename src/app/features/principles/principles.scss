@@ -6,7 +6,8 @@
 
 .principles__grid {
   display: grid;
-  gap: var(--space-5);
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -20,13 +21,13 @@
   }
 }
 
-// Grid items stretch, so every card in a row has the same height.
+// Grid items stretch, so every card in a row has the exact same height and baseline.
 .principles__item {
   display: grid;
 }
 
 .principles__number {
-  display: block;
+  display: inline-block;
   margin-bottom: var(--space-3);
   background: var(--gradient-text);
   -webkit-background-clip: text;

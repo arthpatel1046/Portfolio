@@ -11,7 +11,7 @@
       }
     </div>
 
-    <arth-glass-card arthReveal [arthRevealDelay]="0.2">
+    <arth-glass-card class="about__card" arthReveal [arthRevealDelay]="0.2" [arthParallax]="-24" [arthTilt]="10">
       <h3 class="about__facts-title">Quick facts</h3>
       <dl class="facts">
         @for (fact of about.facts; track fact.label) {

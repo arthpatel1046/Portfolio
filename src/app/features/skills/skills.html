@@ -8,7 +8,12 @@
     <ul class="skills__grid" role="list">
       @for (category of categories; track category.id) {
         <li class="skills__item">
-          <arth-glass-card arthReveal [arthRevealDelay]="($index % 3) * 0.1">
+          <arth-glass-card
+            arthReveal
+            [arthRevealDelay]="($index % 3) * 0.1"
+            [arthParallax]="($index % 2 === 0) ? -14 : 14"
+            [arthTilt]="10"
+          >
             <h3 class="skills__title">{{ category.title }}</h3>
             @if (category.description) {
               <p class="skills__description text-muted">{{ category.description }}</p>

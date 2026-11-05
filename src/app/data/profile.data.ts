@@ -3,10 +3,10 @@ import type { SocialLink } from '../models/social-link';
 // Everything the hero, contact section and footer say about you lives here.
 // Your phone number is deliberately NOT on the public site (scrapers harvest numbers).
 export const PROFILE = {
-  name: 'Arth Patel',
+  name: 'Arth',
   firstName: 'Arth',
-  lastName: 'Patel',
-  initials: 'AP',
+  lastName: '',
+  initials: 'A',
   role: 'Full-Stack Developer · Angular + Spring Boot',
   headline: 'I build data-driven web apps, from Angular interfaces to Spring Boot back ends.',
   intro:
@@ -14,7 +14,7 @@ export const PROFILE = {
   email: 'arthpatel1046@gmail.com',
   location: 'Mumbai, India',
   // Relative path (no leading slash) so it also works under the /Portfolio/ base path.
-  resume: { url: 'resume/Arth-Patel-Resume.pdf', fileName: 'Arth-Patel-Resume.pdf' },
+  resume: { url: 'resume/ArthPatel.pdf', fileName: 'ArthPatel.pdf' },
 } as const;
 
 export const SOCIAL_LINKS: readonly SocialLink[] = [

@@ -25,7 +25,7 @@ export class FluidBackground {
 
     afterNextRender(() => {
       const stopParallax = this.motion.run(() => this.setupParallax());
-      // The cursor light only makes sense with a mouse-like pointer.
+      // The cursor light and mouse-parallax only run with a mouse-like pointer.
       const stopLight = this.motion.run(() => this.setupCursorLight(), '(hover: hover) and (pointer: fine)');
 
       destroyRef.onDestroy(() => {
@@ -42,14 +42,15 @@ export class FluidBackground {
   /** Each layer drifts up at its own speed (data-depth, % of its height) across the whole page scroll. */
   private setupParallax(): void {
     for (const layer of gsap.utils.toArray<HTMLElement>('[data-depth]', this.host)) {
+      const depth = Number(layer.dataset['depth']) || 15;
       gsap.to(layer, {
-        yPercent: -Number(layer.dataset['depth']),
+        yPercent: -depth,
         ease: 'none',
         scrollTrigger: {
           trigger: document.documentElement,
           start: 'top top',
           end: 'bottom bottom',
-          scrub: 0.6,
+          scrub: 0.8,
         },
       });
     }
@@ -57,23 +58,41 @@ export class FluidBackground {
 
   private setupCursorLight(): (() => void) | undefined {
     const light = this.host.querySelector<HTMLElement>('.light');
-    if (!light) {
+    const layers = gsap.utils.toArray<HTMLElement>('[data-mouse]', this.host);
+    if (!light && layers.length === 0) {
       return undefined;
     }
 
-    gsap.set(light, { x: window.innerWidth / 2, y: window.innerHeight / 2 });
-    const moveX = gsap.quickTo(light, 'x', { duration: 0.8, ease: 'power3' });
-    const moveY = gsap.quickTo(light, 'y', { duration: 0.8, ease: 'power3' });
-    const fadeIn = gsap.to(light, { opacity: 1, duration: 1.2, paused: true });
+    const moveX = light ? gsap.quickTo(light, 'x', { duration: 0.7, ease: 'power3' }) : null;
+    const moveY = light ? gsap.quickTo(light, 'y', { duration: 0.7, ease: 'power3' }) : null;
+    const fadeIn = light ? gsap.to(light, { opacity: 1, duration: 1.2, paused: true }) : null;
+
+    if (light) {
+      gsap.set(light, { x: window.innerWidth / 2, y: window.innerHeight / 2 });
+    }
+
+    const layerMovers = layers.map((layer) => {
+      const factor = Number(layer.dataset['mouse']) || 0.02;
+      return {
+        factor,
+        xTo: gsap.quickTo(layer, 'x', { duration: 1.1, ease: 'power3' }),
+      };
+    });
+
     let shown = false;
 
     const onMove = (event: PointerEvent): void => {
-      if (!shown) {
+      if (!shown && fadeIn) {
         shown = true;
         fadeIn.play();
       }
-      moveX(event.clientX);
-      moveY(event.clientY);
+      moveX?.(event.clientX);
+      moveY?.(event.clientY);
+
+      const offsetX = event.clientX - window.innerWidth / 2;
+      for (const mover of layerMovers) {
+        mover.xTo(offsetX * mover.factor);
+      }
     };
 
     window.addEventListener('pointermove', onMove, { passive: true });

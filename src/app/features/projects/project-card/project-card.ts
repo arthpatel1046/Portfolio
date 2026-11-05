@@ -5,16 +5,6 @@ import type { Project } from '../../../models/project';
 import { GlassCard } from '../../../shared/components/glass-card/glass-card';
 import { Tilt } from '../../../shared/directives/tilt';
 
-function initialsOf(title: string): string {
-  return title
-    .split(/\s+/)
-    .filter(Boolean)
-    .map((word) => word[0] ?? '')
-    .join('')
-    .slice(0, 3)
-    .toUpperCase();
-}
-
 @Component({
   selector: 'arth-project-card',
   imports: [GlassCard, Tilt, LucideArrowUpRight, LucideCode, LucideLock],
@@ -24,9 +14,8 @@ function initialsOf(title: string): string {
 })
 export class ProjectCard {
   readonly project = input.required<Project>();
-  /** Position in the list; varies the angle of the generated cover gradient. */
+  /** Position in the list; used for 01–06 numbering. */
   readonly index = input(0);
 
-  protected readonly initials = computed(() => initialsOf(this.project().title));
-  protected readonly coverAngle = computed(() => 135 + ((this.index() * 47) % 180));
+  protected readonly numberLabel = computed(() => String(this.index() + 1).padStart(2, '0'));
 }

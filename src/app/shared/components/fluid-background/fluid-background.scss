@@ -1,7 +1,5 @@
 @use 'styles/mixins' as *;
 
-// A fixed, non-interactive layer behind the page. contain: strict tells the browser
-// nothing in here can affect layout elsewhere, which keeps scrolling cheap.
 :host {
   position: fixed;
   inset: 0;
@@ -10,45 +8,48 @@
   overflow: hidden;
   pointer-events: none;
   contain: strict;
+  background-color: var(--color-bg);
 }
 
-// Taller than the screen so parallax movement never reveals an edge.
 .layer {
   position: absolute;
-  inset: -25% 0;
+  inset: -30% -5%;
   will-change: transform;
 }
 
-// ── Layer 1: organic gradients ─────────────────────────────
-.blob {
+// ── Subtle Studio Light Pools (No Grey Smudge Circles) ─────
+.studio-light {
   position: absolute;
   border-radius: 50%;
-  animation: drift 26s var(--ease-in-out) infinite alternate;
+  filter: blur(140px);
+  animation: drift 28s var(--ease-in-out) infinite alternate;
 
-  &--1 {
-    top: 8%;
-    left: -18vmax;
-    width: 62vmax;
-    height: 62vmax;
-    background: radial-gradient(closest-side, color-mix(in srgb, var(--color-violet) 40%, transparent), transparent);
+  &--top {
+    top: 12%;
+    right: -10vmax;
+    width: 50vmax;
+    height: 50vmax;
+    // Matches the subtle emerald-cyan glow of hero-bg.png
+    background: radial-gradient(closest-side, rgba(16, 185, 129, 0.055), transparent);
   }
 
-  &--2 {
-    top: 38%;
-    right: -22vmax;
-    width: 58vmax;
-    height: 58vmax;
-    background: radial-gradient(closest-side, color-mix(in srgb, var(--color-violet-bright) 30%, transparent), transparent);
-    animation-duration: 32s;
+  &--mid {
+    top: 45%;
+    left: -12vmax;
+    width: 52vmax;
+    height: 52vmax;
+    // Soft brushed-platinum studio light
+    background: radial-gradient(closest-side, rgba(255, 255, 255, 0.035), transparent);
+    animation-duration: 34s;
     animation-delay: -9s;
   }
 
-  &--3 {
+  &--bottom {
     bottom: 4%;
-    left: 18vmax;
-    width: 50vmax;
-    height: 50vmax;
-    background: radial-gradient(closest-side, color-mix(in srgb, var(--color-lavender) 18%, transparent), transparent);
+    right: 10vmax;
+    width: 48vmax;
+    height: 48vmax;
+    background: radial-gradient(closest-side, rgba(16, 185, 129, 0.045), transparent);
     animation-duration: 38s;
     animation-delay: -16s;
   }
@@ -59,45 +60,54 @@
     transform: translate3d(0, 0, 0) scale(1);
   }
   to {
-    transform: translate3d(6vmax, -4vmax, 0) scale(1.12);
+    transform: translate3d(4vmax, -3vmax, 0) scale(1.06);
   }
 }
 
-// ── Layers 2 and 3: silk ribbons ───────────────────────────
-.ribbon {
+// ── Architectural Dot-Matrix & Vertical Guides ─────────────
+.dot-matrix {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  animation: sway 22s var(--ease-in-out) infinite alternate;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 28px 28px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 65% at 50% 42%, #000 20%, transparent 82%);
+  mask-image: radial-gradient(ellipse 80% 65% at 50% 42%, #000 20%, transparent 82%);
+}
 
-  &--b {
-    animation-duration: 30s;
-    animation-direction: alternate-reverse;
+.structural-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(255, 255, 255, 0.035) 20%,
+    rgba(255, 255, 255, 0.035) 80%,
+    transparent
+  );
+
+  &--left {
+    left: 12%;
+  }
+
+  &--right {
+    right: 12%;
   }
 }
 
-@keyframes sway {
-  from {
-    transform: translate3d(-1.5%, 1%, 0) rotate(-0.6deg);
-  }
-  to {
-    transform: translate3d(1.5%, -2%, 0) rotate(0.6deg);
-  }
-}
-
-// ── Cursor light (mouse-like pointers, motion allowed) ─────
+// ── Cursor Light ───────────────────────────────────────────
 .light {
   position: absolute;
   top: 0;
   left: 0;
   display: none;
-  width: 44rem;
-  height: 44rem;
-  margin: -22rem 0 0 -22rem;
+  width: 42rem;
+  height: 42rem;
+  margin: -21rem 0 0 -21rem;
   border-radius: 50%;
-  background: radial-gradient(closest-side, color-mix(in srgb, var(--color-violet-bright) 24%, transparent), transparent);
-  opacity: 0; // faded in by GSAP on the first pointer move
+  background: radial-gradient(closest-side, rgba(255, 255, 255, 0.05), transparent);
+  opacity: 0;
   will-change: transform;
 
   @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
@@ -105,27 +115,31 @@
   }
 }
 
-// Darkens the edges so text over the ribbons stays readable.
+// ── Tactile Film Grain ─────────────────────────────────────
+.film-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.3;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+}
+
+// ── Studio Vignette ────────────────────────────────────────
 .vignette {
   position: absolute;
   inset: 0;
   background: radial-gradient(
-    ellipse 80% 70% at 50% 40%,
-    transparent 30%,
-    color-mix(in srgb, var(--color-bg) 85%, transparent) 100%
+    ellipse 88% 78% at 50% 45%,
+    transparent 45%,
+    rgba(7, 7, 9, 0.85) 100%
   );
 }
 
-// Tab in the background: stop the CSS animations.
 :host(.is-paused) * {
   animation-play-state: paused !important;
 }
 
-
-// Phones: a static composition. The drifting animation costs battery and adds little on a small screen.
 @include down('md') {
-  .blob,
-  .ribbon {
+  .studio-light {
     animation: none;
   }
 }

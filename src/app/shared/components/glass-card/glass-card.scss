@@ -1,22 +1,58 @@
 @use 'styles/mixins' as *;
 
 :host {
-  @include glass;
+  @include glass(2rem);
+  --scroll-angle: 135deg;
+
+  position: relative;
   display: block;
   padding: var(--space-6);
-  transition: border-color var(--dur-base) var(--ease-out);
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.012);
+  transition:
+    border-color var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out);
+
+  // Scroll-reactive iOS Mirror Rim & Chromatic Prism Edge (Image 1 & Image 2)
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(
+      var(--scroll-angle, 135deg),
+      rgba(255, 255, 255, 0.72) 0%,
+      rgba(255, 255, 255, 0.08) 28%,
+      rgba(77, 159, 255, 0.28) 48%,
+      rgba(168, 85, 247, 0.24) 56%,
+      rgba(255, 255, 255, 0.08) 74%,
+      rgba(255, 255, 255, 0.55) 100%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
 
   @include fine-pointer {
     &:hover {
-      border-color: rgba(196, 181, 253, 0.32);
+      border-color: rgba(255, 255, 255, 0.32);
+      transform: translateY(-4px);
+      box-shadow:
+        0 26px 56px -12px rgba(0, 0, 0, 0.85),
+        inset 0 2px 1.5px 0 rgba(255, 255, 255, 0.65),
+        inset 1.5px 0 1px 0 rgba(255, 255, 255, 0.28),
+        inset 0 0 0 2px rgba(0, 0, 0, 0.6),
+        inset 0 -2px 1.5px 0 rgba(255, 255, 255, 0.28);
     }
   }
 
-  // Blurring a moving background is expensive on phones: use a denser, blur-free surface there.
   @include down('md') {
     padding: var(--space-5);
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    background: color-mix(in srgb, var(--color-surface) 82%, transparent);
+    border-radius: 1.65rem;
   }
 }

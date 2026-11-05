@@ -5,22 +5,71 @@
   inset: 0 0 auto 0;
   z-index: var(--z-nav);
   display: block;
+  padding-top: var(--space-3);
+  padding-inline: var(--container-pad);
 }
 
 .bar {
+  position: relative;
+  max-width: var(--container-max);
   height: var(--nav-height);
-  border-bottom: 1px solid transparent;
+  margin-inline: auto;
+  background: rgba(255, 255, 255, 0.015);
+  border: 1.5px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px; // Exact iOS "App Library" pill shape
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.5),
+    inset 0 1.5px 1px rgba(255, 255, 255, 0.35),
+    inset 0 0 0 1.5px rgba(0, 0, 0, 0.5),
+    inset 0 -1.5px 1px rgba(255, 255, 255, 0.14);
+  -webkit-backdrop-filter: blur(12px) saturate(180%) contrast(110%);
+  backdrop-filter: blur(12px) saturate(180%) contrast(110%);
   transition:
-    background-color var(--dur-base) var(--ease-out),
-    border-color var(--dur-base) var(--ease-out);
+    border-color var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out),
+    backdrop-filter var(--dur-base) var(--ease-out);
+
+  // Curved bottom optical mirror & chromatic lens refraction lip (Image 1 scroll effect)
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.65) 0%,
+      rgba(255, 255, 255, 0.08) 45%,
+      rgba(77, 159, 255, 0.45) 85%,
+      rgba(168, 85, 247, 0.4) 100%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.45;
+    pointer-events: none;
+    transition: opacity var(--dur-base) var(--ease-out);
+  }
 }
 
-// Transparent at the top of the page; frosted glass once the page has scrolled.
+// On scroll: intensifies the iOS mirror lens refraction & chromatic bottom rim (like Image 1)
 :host(.is-scrolled) .bar {
-  background: color-mix(in srgb, var(--color-bg) 62%, transparent);
-  border-bottom-color: var(--color-glass-border);
-  -webkit-backdrop-filter: blur(var(--blur-glass)) saturate(140%);
-  backdrop-filter: blur(var(--blur-glass)) saturate(140%);
+  background: rgba(255, 255, 255, 0.025);
+  border-color: rgba(255, 255, 255, 0.24);
+  box-shadow:
+    0 20px 48px -6px rgba(0, 0, 0, 0.78),
+    0 4px 18px rgba(77, 159, 255, 0.12),
+    inset 0 2px 1.5px rgba(255, 255, 255, 0.62),
+    inset 0 0 0 2px rgba(0, 0, 0, 0.6),
+    inset 0 -2px 2px rgba(77, 159, 255, 0.28);
+  -webkit-backdrop-filter: url(#ios-liquid-refraction) blur(16px) saturate(200%) contrast(115%);
+  backdrop-filter: url(#ios-liquid-refraction) blur(16px) saturate(200%) contrast(115%);
+
+  &::after {
+    opacity: 1;
+  }
 }
 
 .bar__inner {
@@ -29,9 +78,10 @@
   justify-content: space-between;
   gap: var(--space-4);
   height: 100%;
+  padding-inline: var(--space-5);
 }
 
-// ── Brand ──────────────────────────────────────────────────
+// ── Brand (Molded Mirror Squircle) ─────────────────────────
 .brand {
   display: inline-flex;
   align-items: center;
@@ -46,14 +96,20 @@
   &__mark {
     display: grid;
     place-items: center;
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: var(--radius-sm);
-    background: var(--color-violet); // white on #7C3AED ≈ 5.5:1
-    color: var(--color-text);
+    width: 2.4rem;
+    height: 2.4rem;
+    border: 1.5px solid rgba(255, 255, 255, 0.28);
+    border-radius: 0.85rem;
+    background: rgba(255, 255, 255, 0.02);
+    color: #FFFFFF;
     font-size: var(--text-sm);
+    font-weight: 700;
     letter-spacing: 0.02em;
-    box-shadow: 0 0 24px var(--color-glow);
+    box-shadow:
+      0 6px 16px rgba(0, 0, 0, 0.5),
+      inset 0 1.5px 1px rgba(255, 255, 255, 0.52),
+      inset 0 0 0 1.5px rgba(0, 0, 0, 0.5),
+      inset 0 -1.5px 1px rgba(255, 255, 255, 0.18);
   }
 
   &__name {
@@ -63,20 +119,24 @@
   }
 }
 
-// ── Mobile menu button (44px touch target) ─────────────────
+// ── Mobile menu button ─────────────────────────────────────
 .menu-toggle {
   display: grid;
   place-items: center;
   width: 2.75rem;
   height: 2.75rem;
-  border: 1px solid var(--color-glass-border);
-  border-radius: var(--radius-sm);
-  background: var(--color-glass);
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.02);
   color: var(--color-text);
-  transition: background-color var(--dur-fast) var(--ease-out);
+  box-shadow:
+    inset 0 1.5px 1px rgba(255, 255, 255, 0.45),
+    inset 0 0 0 1.5px rgba(0, 0, 0, 0.5),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.16);
+  transition: border-color var(--dur-fast) var(--ease-out);
 
   &:hover {
-    background: var(--color-glass-hover);
+    border-color: rgba(255, 255, 255, 0.48);
   }
 
   @include up('lg') {
@@ -84,17 +144,17 @@
   }
 }
 
-// ── Menu: dropdown panel on mobile, inline row on desktop ──
+// ── Menu ───────────────────────────────────────────────────
 .menu {
-  @include glass;
+  @include glass(1.75rem);
   position: absolute;
   top: calc(100% + var(--space-2));
   left: var(--container-pad);
   right: var(--container-pad);
   padding: var(--space-3);
-  background: color-mix(in srgb, var(--color-surface) 90%, transparent);
+  background: rgba(8, 8, 12, 0.78);
   opacity: 0;
-  visibility: hidden; // closed menu is removed from the tab order and from screen readers
+  visibility: hidden;
   transform: translateY(-0.5rem);
   transition:
     opacity var(--dur-base) var(--ease-out),
@@ -136,51 +196,69 @@
   @include up('lg') {
     display: flex;
     align-items: center;
-    gap: var(--space-2);
+    gap: var(--space-1);
   }
 }
 
 .menu__link {
   display: block;
-  padding: var(--space-3) var(--space-4);
-  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.95rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
   color: var(--color-text-muted);
+  font-size: var(--text-sm);
   font-weight: 500;
   text-decoration: none;
   transition:
     color var(--dur-fast) var(--ease-out),
-    background-color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
     box-shadow var(--dur-base) var(--ease-out);
 
   &:hover {
-    color: var(--color-text);
-    background: var(--color-glass-hover);
+    color: #FFFFFF;
+    border-color: rgba(255, 255, 255, 0.18);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
   }
 
   &[aria-current='location'] {
-    color: var(--color-lavender);
-    background: var(--color-glass);
+    color: #FFFFFF;
+    border-color: rgba(255, 255, 255, 0.24);
+    box-shadow:
+      inset 0 1.5px 1px rgba(255, 255, 255, 0.4),
+      inset 0 0 0 1px rgba(0, 0, 0, 0.45);
+    font-weight: 600;
   }
 
+  // Contact CTA: Exact iOS "App Library" Search Pill Mirror Rim
   &--cta {
     margin-top: var(--space-2);
-    background: var(--color-violet);
-    color: var(--color-text);
+    border: 1.5px solid rgba(255, 255, 255, 0.28);
+    border-radius: var(--radius-pill);
+    background: rgba(255, 255, 255, 0.02);
+    color: #FFFFFF;
     font-weight: 600;
     text-align: center;
+    box-shadow:
+      0 8px 20px rgba(0, 0, 0, 0.5),
+      inset 0 1.5px 1px rgba(255, 255, 255, 0.55),
+      inset 0 0 0 1.5px rgba(0, 0, 0, 0.55),
+      inset 0 -1.5px 1px rgba(255, 255, 255, 0.2);
 
     &:hover,
     &[aria-current='location'] {
-      background: var(--color-violet);
-      color: var(--color-text);
-      box-shadow: var(--shadow-glow);
+      border-color: rgba(255, 255, 255, 0.52);
+      color: #FFFFFF;
+      box-shadow:
+        0 10px 26px rgba(0, 0, 0, 0.65),
+        inset 0 2px 1.5px rgba(255, 255, 255, 0.75),
+        inset 0 0 0 1.5px rgba(0, 0, 0, 0.6),
+        inset 0 -1.5px 1px rgba(255, 255, 255, 0.3);
     }
 
     @include up('lg') {
       margin-top: 0;
       margin-left: var(--space-2);
-      padding-inline: var(--space-5);
-      border-radius: var(--radius-pill);
+      padding: 0.55rem 1.35rem;
     }
   }
 }

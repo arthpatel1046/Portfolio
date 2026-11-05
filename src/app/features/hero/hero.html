@@ -1,26 +1,44 @@
 <section class="hero" aria-labelledby="hero-title">
+  <!-- Studio workstation backdrop -->
+  <div class="hero__bg" aria-hidden="true">
+    <img
+      class="hero__bg-img"
+      src="images/hero-bg.png"
+      alt=""
+      loading="eager"
+      decoding="async"
+    />
+    <div class="hero__bg-overlay"></div>
+  </div>
+
   <div class="container hero__inner">
-    <p class="eyebrow hero__item">{{ profile.role }}</p>
+    <div class="hero__content">
+      <p class="eyebrow hero__item">
+        <span class="hero__status-dot" aria-hidden="true"></span>
+        {{ profile.role }}
+      </p>
 
-    <h1 id="hero-title" class="display hero__title hero__item">
-      {{ profile.firstName }}
-      <span class="hero__last text-gradient">{{ profile.lastName }}</span>
-    </h1>
+      <h1 id="hero-title" class="display hero__title hero__item">
+        <span class="text-gradient">{{ profile.firstName }}</span>
+      </h1>
 
-    <p class="lead measure hero__item">{{ profile.headline }}</p>
-    <p class="text-muted measure hero__item">{{ profile.intro }}</p>
+      <p class="lead measure hero__item">{{ profile.headline }}</p>
+      <p class="text-muted measure hero__item">{{ profile.intro }}</p>
 
-    <div class="hero__actions hero__item">
-      <a class="btn btn--primary" arthSpotlight href="#projects" (click)="spy.goTo('projects', $event)">
-        View projects
-        <svg lucideArrowRight [size]="18" aria-hidden="true"></svg>
-      </a>
-      <a class="btn btn--ghost" arthSpotlight href="#contact" (click)="spy.goTo('contact', $event)">Get in touch</a>
+      <div class="hero__actions hero__item">
+        <a class="btn btn--primary" arthSpotlight href="#projects" (click)="spy.goTo('projects', $event)">
+          View projects
+          <svg lucideArrowRight [size]="18" aria-hidden="true"></svg>
+        </a>
+        <a class="btn btn--ghost" arthSpotlight href="#contact" (click)="spy.goTo('contact', $event)">Get in touch</a>
+      </div>
     </div>
   </div>
 
   <a class="hero__scroll" href="#about" aria-label="Scroll to About" (click)="spy.goTo('about', $event)">
-    <span aria-hidden="true">Scroll</span>
-    <svg lucideArrowDown [size]="18" aria-hidden="true"></svg>
+    <span class="hero__mouse" aria-hidden="true">
+      <span class="hero__mouse-wheel"></span>
+    </span>
+    <span class="hero__scroll-text" aria-hidden="true">Scroll</span>
   </a>
 </section>

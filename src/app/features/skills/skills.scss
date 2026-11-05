@@ -1,16 +1,24 @@
+@use 'styles/mixins' as *;
+
 :host {
   display: block;
 }
 
-// min(100%, 20rem) lets a column shrink to the container on very narrow screens
-// (320px wide, or 400% zoom) instead of overflowing it.
 .skills__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  grid-template-columns: 1fr;
   gap: var(--space-5);
   margin: 0;
   padding: 0;
   list-style: none;
+
+  @include up('md') {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include up('xl') {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 // Grid items stretch, so every card in a row has the same height.

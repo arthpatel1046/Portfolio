@@ -1,5 +1,5 @@
 import { afterNextRender, ChangeDetectionStrategy, Component, DestroyRef, ElementRef, inject } from '@angular/core';
-import { LucideArrowDown, LucideArrowRight } from '@lucide/angular';
+import { LucideArrowRight } from '@lucide/angular';
 import { gsap } from 'gsap';
 
 import { Motion } from '../../core/motion/motion';
@@ -9,7 +9,7 @@ import { Spotlight } from '../../shared/directives/spotlight';
 
 @Component({
   selector: 'arth-hero',
-  imports: [LucideArrowRight, LucideArrowDown, Spotlight],
+  imports: [LucideArrowRight, Spotlight],
   templateUrl: './hero.html',
   styleUrl: './hero.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

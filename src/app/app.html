@@ -1,5 +1,15 @@
 <a class="skip-link" href="#main">Skip to content</a>
 
+<!-- Hidden SVG Optical Filter for iOS Liquid Glass Mirror / Lens Refraction -->
+<svg class="sr-only" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="ios-liquid-refraction" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.015 0.04" numOctaves="2" result="noise" />
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+  </defs>
+</svg>
+
 <arth-fluid-background />
 <arth-navbar />
 

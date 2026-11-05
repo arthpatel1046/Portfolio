@@ -1,37 +1,42 @@
-// Design tokens: the single source of truth for "Midnight Violet Glassmorphism".
-// Emitted ONCE, from styles.scss. Components read them with var(--token);
-// they never @use this file (that would duplicate :root in every component).
+// Design tokens: "Obsidian & Liquid Titanium" (MAANG / Linear / Apple Pro Dark Glass).
+// Emitted ONCE, from styles.scss[cite: 3].
 
 :root {
   color-scheme: dark;
 
-  // ── Color ────────────────────────────────────────────────
-  --color-bg: #080812;
-  --color-bg-2: #0D0D19;
-  --color-surface: #151522;
-  --color-glass: rgba(255, 255, 255, 0.055);
-  --color-glass-hover: rgba(255, 255, 255, 0.085);
-  --color-glass-border: rgba(255, 255, 255, 0.12);
-  --color-violet: #7C3AED;
-  --color-violet-bright: #8B5CF6;
-  --color-lavender: #C4B5FD;
-  --color-text: #F8FAFC;
-  --color-text-muted: #A5ADBD;
-  --color-glow: rgba(139, 92, 246, 0.35);
-  --color-focus: var(--color-lavender);
+  // ── Color (Monochrome Obsidian & Liquid Titanium) ────────
+  --color-bg: #070709; // Deep Carbon Obsidian
+  --color-bg-2: #0C0C10; // Elevated Charcoal
+  --color-surface: #111116; // Solid fallback surface
+  --color-glass: rgba(255, 255, 255, 0.045); // Smoked Titanium Glass
+  --color-glass-hover: rgba(255, 255, 255, 0.08);
+  --color-glass-border: rgba(255, 255, 255, 0.1);
+  --color-violet: #F4F4F5; // Primary CTA fill: Pure Platinum (No blue!)
+  --color-violet-bright: #E4E4E7; // Secondary highlight: Brushed Silver
+  --color-lavender: #D4D4D8; // Eyebrows, metadata & subtle accents: Zinc 300
+  --color-text: #FAFAFA; // Crisp Alabaster White
+  --color-text-muted: #A1A1AA; // Neutral Zinc 400 for effortless reading
+  --color-on-primary: #09090B; // Deep carbon ink on Platinum buttons
+  --color-glow: rgba(255, 255, 255, 0.16);
+  --color-focus: #FAFAFA;
 
+  // Metallic silver-platinum gradients (Zero rainbow hues)
   --gradient-violet: linear-gradient(
     135deg,
-    var(--color-violet) 0%,
-    var(--color-violet-bright) 55%,
-    var(--color-lavender) 100%
+    #FFFFFF 0%,
+    #D4D4D8 50%,
+    #71717A 100%
   );
-  --gradient-text: linear-gradient(120deg, var(--color-lavender) 0%, var(--color-violet-bright) 100%);
+  --gradient-text: linear-gradient(
+    180deg,
+    #FFFFFF 0%,
+    #A1A1AA 100%
+  );
 
   // ── Typography ───────────────────────────────────────────
-  --font-display: 'Space Grotesk Variable', 'Segoe UI', system-ui, sans-serif;
-  --font-body: 'Inter Variable', 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif;
-  --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Space Grotesk Variable', 'Segoe UI', system-ui, sans-serif;
+  --font-body: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter Variable', 'Segoe UI', system-ui, Roboto, sans-serif;
+  --font-mono: 'SF Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
 
   --text-xs: clamp(0.75rem, 0.72rem + 0.15vw, 0.8125rem);
   --text-sm: clamp(0.875rem, 0.85rem + 0.12vw, 0.9375rem);
@@ -40,9 +45,9 @@
   --text-xl: clamp(1.375rem, 1.2rem + 0.8vw, 1.75rem);
   --text-2xl: clamp(1.75rem, 1.4rem + 1.6vw, 2.5rem);
   --text-3xl: clamp(2.25rem, 1.6rem + 3vw, 3.75rem);
-  --text-display: clamp(2.75rem, 1.6rem + 5.5vw, 6.5rem);
+  --text-display: clamp(2.75rem, 1.6rem + 5.5vw, 6.25rem);
 
-  // ── Spacing ──────────────────────────────────────────────
+  // ── Apple / Linear Precision Spacing ─────────────────────
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
@@ -50,25 +55,31 @@
   --space-5: 1.5rem;
   --space-6: 2rem;
   --space-7: 3rem;
-  --space-8: 4rem;
-  --space-9: 6rem;
-  --space-10: 8rem;
+  --space-8: 4.25rem;
+  --space-9: 6.5rem;
+  --space-10: 8.5rem;
 
   // ── Layout ───────────────────────────────────────────────
-  --container-max: 80rem;
-  --container-pad: clamp(1.25rem, 0.5rem + 3vw, 3rem);
+  --container-max: 78rem;
+  --container-pad: clamp(1.25rem, 0.5rem + 3.5vw, 3.25rem);
   --nav-height: 4.5rem;
-  --section-padding-y: clamp(4.5rem, 3rem + 7vw, 9rem);
+  --section-padding-y: clamp(5rem, 3.5rem + 7vw, 9.5rem);
 
-  // ── Shape and depth ──────────────────────────────────────
-  --radius-sm: 0.5rem;
+  // ── Shape and Liquid Glass Depth ─────────────────────────
+  --radius-sm: 0.625rem;
   --radius-md: 1rem;
-  --radius-lg: 1.5rem;
+  --radius-lg: 1.5rem; // 24px rounded corners
   --radius-xl: 2rem;
   --radius-pill: 999px;
-  --blur-glass: 18px;
-  --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.35);
-  --shadow-glow: 0 0 48px var(--color-glow);
+  --blur-glass: 24px;
+  --shadow-glass:
+    0 24px 48px -12px rgba(0, 0, 0, 0.75),
+    0 4px 16px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  --shadow-glow:
+    0 0 32px rgba(255, 255, 255, 0.22),
+    0 8px 24px rgba(0, 0, 0, 0.6);
 
   // ── Motion ───────────────────────────────────────────────
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);

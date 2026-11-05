@@ -6,9 +6,11 @@
     </header>
 
     <ol class="timeline" role="list">
+      <div class="timeline__progress" aria-hidden="true"></div>
+
       @for (entry of entries; track entry.id) {
         <li class="timeline__item">
-          <arth-glass-card arthReveal>
+          <arth-glass-card arthReveal [arthParallax]="($index % 2 === 0) ? -12 : 12" [arthTilt]="6">
             <header class="entry__header">
               <div>
                 <h3 class="entry__role">{{ entry.role }}</h3>

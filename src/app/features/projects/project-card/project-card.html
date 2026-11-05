@@ -1,6 +1,6 @@
-<arth-glass-card class="card" arthTilt>
-  <div class="card__cover" [style.--cover-angle]="coverAngle() + 'deg'">
-    @if (project().image; as image) {
+<arth-glass-card class="card" [arthTilt]="10">
+  @if (project().image; as image) {
+    <div class="card__cover">
       <img
         [src]="image.src"
         [alt]="image.alt"
@@ -9,22 +9,24 @@
         loading="lazy"
         decoding="async"
       />
-    } @else {
-      <span class="card__initials" aria-hidden="true">{{ initials() }}</span>
-    }
-  </div>
+    </div>
+  }
 
   <div class="card__body">
-    @if (project().year || project().role) {
-      <p class="card__meta">
-        @if (project().year) {
-          <span>{{ project().year }}</span>
-        }
-        @if (project().role) {
-          <span>{{ project().role }}</span>
-        }
-      </p>
-    }
+    <div class="card__top">
+      <span class="card__index" aria-hidden="true">{{ numberLabel() }}</span>
+
+      @if (project().year || project().role) {
+        <p class="card__meta">
+          @if (project().year) {
+            <span>{{ project().year }}</span>
+          }
+          @if (project().role) {
+            <span>{{ project().role }}</span>
+          }
+        </p>
+      }
+    </div>
 
     <h3 class="card__title">{{ project().title }}</h3>
     <p class="card__tagline">{{ project().tagline }}</p>

@@ -12,11 +12,10 @@
   padding-block: var(--section-padding-y);
 }
 
-// Eyebrow + h2 block that opens every section.
 .section-heading {
   display: grid;
   gap: var(--space-3);
-  margin-bottom: clamp(2rem, 1rem + 4vw, 4rem);
+  margin-bottom: clamp(2.25rem, 1.25rem + 4vw, 4.25rem);
 }
 
 .glass {
@@ -27,7 +26,6 @@
   @include visually-hidden;
 }
 
-// First Tab stop on the page: hidden until focused.
 .skip-link {
   @include visually-hidden;
 
@@ -43,7 +41,8 @@
     overflow: visible;
     clip-path: none;
     white-space: normal;
-    background: var(--color-violet);
+    background: rgba(10, 10, 14, 0.92);
+    border: 2px solid rgba(255, 255, 255, 0.5);
     color: var(--color-text);
     font-weight: 600;
     border-radius: var(--radius-sm);
@@ -51,59 +50,91 @@
   }
 }
 
-// ── Buttons (links or <button>) ────────────────────────────
+// ── iOS "App Library" Search Pill Mirror-Rim Buttons ───────
 .btn {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
-  min-height: 3rem;
-  padding: 0.75rem 1.5rem;
-  border: 1px solid transparent;
+  min-height: 3.25rem;
+  padding: 0.85rem 1.85rem;
   border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.015);
   font-family: var(--font-display);
   font-size: var(--text-base);
   font-weight: 600;
   line-height: 1;
+  color: #FFFFFF;
   text-decoration: none;
   cursor: pointer;
+  overflow: hidden;
+  -webkit-backdrop-filter: blur(12px) saturate(180%) contrast(110%);
+  backdrop-filter: blur(12px) saturate(180%) contrast(110%);
   transition:
     transform var(--dur-fast) var(--ease-out),
     box-shadow var(--dur-base) var(--ease-out),
-    background-color var(--dur-base) var(--ease-out),
-    border-color var(--dur-base) var(--ease-out);
+    border-color var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out);
 
-  // Solid #7C3AED keeps white text at ~5.5:1; hover adds glow instead of lightening the fill.
-  &--primary {
-    background: var(--color-violet);
-    color: var(--color-text);
+  svg {
+    flex-shrink: 0;
+    color: currentColor;
+    transition: transform var(--dur-fast) var(--ease-out);
   }
 
+  // Primary CTA: High-Specular iOS Mirror Pill
+  &--primary {
+    border: 1.5px solid rgba(255, 255, 255, 0.32);
+    color: #FFFFFF;
+    box-shadow:
+      0 12px 28px -4px rgba(0, 0, 0, 0.7),
+      inset 0 2px 1px 0 rgba(255, 255, 255, 0.62),
+      inset 1px 0 1px 0 rgba(255, 255, 255, 0.25),
+      inset 0 0 0 2px rgba(0, 0, 0, 0.6),
+      inset 0 -1.5px 1px 0 rgba(255, 255, 255, 0.24);
+  }
+
+  // Secondary CTA: Subtle iOS Mirror Pill
   &--ghost {
-    background: var(--color-glass);
-    border-color: var(--color-glass-border);
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
     color: var(--color-text);
+    box-shadow:
+      0 10px 24px -4px rgba(0, 0, 0, 0.6),
+      inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.45),
+      inset 1px 0 1px 0 rgba(255, 255, 255, 0.16),
+      inset 0 0 0 2px rgba(0, 0, 0, 0.55),
+      inset 0 -1.5px 1px 0 rgba(255, 255, 255, 0.16);
   }
 
   @include fine-pointer {
     &:hover {
       transform: translateY(-2px);
+      color: #FFFFFF;
     }
 
     &--primary:hover {
-      box-shadow: var(--shadow-glow);
+      border-color: rgba(255, 255, 255, 0.58);
+      box-shadow:
+        0 16px 34px -4px rgba(0, 0, 0, 0.8),
+        0 2px 18px rgba(77, 159, 255, 0.16),
+        inset 0 2.5px 1.5px 0 rgba(255, 255, 255, 0.82),
+        inset 0 0 0 2px rgba(0, 0, 0, 0.65),
+        inset 0 -2px 1.5px 0 rgba(77, 159, 255, 0.35);
     }
 
     &--ghost:hover {
-      background: var(--color-glass-hover);
-      border-color: rgba(196, 181, 253, 0.5);
+      border-color: rgba(255, 255, 255, 0.42);
+      box-shadow:
+        0 14px 30px -4px rgba(0, 0, 0, 0.72),
+        inset 0 2px 1.5px 0 rgba(255, 255, 255, 0.65),
+        inset 0 0 0 2px rgba(0, 0, 0, 0.6),
+        inset 0 -1.5px 1px 0 rgba(255, 255, 255, 0.28);
     }
   }
 }
 
-
-// ── Cursor spotlight ───────────────────────────────────────
-// Added by the arthSpotlight directive, which sets --mx / --my on the element.
+// ── Cursor spotlight (Enhanced Brighter Fluid Glint on Card Hover) ──
 .has-spotlight {
   position: relative;
   isolation: isolate;
@@ -115,9 +146,10 @@
     z-index: -1;
     border-radius: inherit;
     background: radial-gradient(
-      20rem circle at var(--mx, 50%) var(--my, 50%),
-      rgba(196, 181, 253, 0.18),
-      transparent 65%
+      24rem circle at var(--mx, 50%) var(--my, 50%),
+      rgba(255, 255, 255, 0.135) 0%,
+      rgba(255, 255, 255, 0.045) 35%,
+      transparent 68%
     );
     opacity: 0;
     pointer-events: none;
@@ -131,8 +163,7 @@
   }
 }
 
-
-// ── Chips (skills, technologies, tags) ─────────────────────
+// ── Chips (Mini iOS Mirror Pills) ──────────────────────────
 .chips {
   display: flex;
   flex-wrap: wrap;
@@ -145,11 +176,34 @@
 .chip {
   display: inline-flex;
   align-items: center;
-  padding: 0.25rem 0.75rem;
-  border: 1px solid var(--color-glass-border);
+  padding: 0.35rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: var(--radius-pill);
-  background: var(--color-glass);
-  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.015);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0.5px rgba(255, 255, 255, 0.38),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.5),
+    inset 0 -1px 0.5px rgba(255, 255, 255, 0.14);
+  color: #F4F4F5;
   font-size: var(--text-sm);
+  font-weight: 500;
   line-height: 1.4;
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+
+  @include fine-pointer {
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.42);
+      box-shadow:
+        0 6px 16px rgba(0, 0, 0, 0.55),
+        inset 0 1.5px 1px rgba(255, 255, 255, 0.6),
+        inset 0 0 0 1px rgba(0, 0, 0, 0.55);
+      color: #FFFFFF;
+      transform: translateY(-1px);
+    }
+  }
 }

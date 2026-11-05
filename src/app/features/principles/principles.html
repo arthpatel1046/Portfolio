@@ -8,7 +8,11 @@
     <ol class="principles__grid" role="list">
       @for (principle of principles; track principle.id) {
         <li class="principles__item">
-          <arth-glass-card arthReveal [arthRevealDelay]="($index % 2) * 0.1">
+          <arth-glass-card
+            arthReveal
+            [arthRevealDelay]="($index % 3) * 0.1"
+            [arthTilt]="10"
+          >
             <span class="principles__number" aria-hidden="true">{{ ($index + 1).toString().padStart(2, '0') }}</span>
             <h3 class="principles__title">{{ principle.title }}</h3>
             <p class="text-muted">{{ principle.description }}</p>

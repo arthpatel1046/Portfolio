@@ -4,11 +4,11 @@
   display: block;
 }
 
-// A vertical rail with a dot per entry. The three variables keep rail and dots aligned.
+// A vertical rail with a dot per entry and a scroll-scrubbed laser progress beam.
 .timeline {
   --rail-x: 0.5rem;
   --indent: var(--space-6);
-  --dot: 0.9rem;
+  --dot: 0.95rem;
 
   position: relative;
   display: grid;
@@ -17,6 +17,7 @@
   padding: 0 0 0 var(--indent);
   list-style: none;
 
+  // Dim background track
   &::before {
     content: '';
     position: absolute;
@@ -25,13 +26,28 @@
     left: calc(var(--rail-x) - 1px);
     width: 2px;
     border-radius: 2px;
-    background: linear-gradient(to bottom, var(--color-violet), transparent);
+    background: rgba(255, 255, 255, 0.1);
   }
 
   @include up('md') {
     --rail-x: 1rem;
     --indent: var(--space-8);
   }
+}
+
+// Glowing scroll-scrubbed laser beam
+.timeline__progress {
+  position: absolute;
+  top: var(--space-2);
+  bottom: var(--space-2);
+  left: calc(var(--rail-x) - 1px);
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(to bottom, var(--color-lavender), var(--color-violet-bright), var(--color-violet));
+  box-shadow: 0 0 14px var(--color-violet-bright);
+  transform: scaleY(0);
+  transform-origin: top center;
+  pointer-events: none;
 }
 
 .timeline__item {
@@ -42,12 +58,13 @@
     position: absolute;
     top: calc(var(--space-6) + 0.35rem);
     left: calc(var(--rail-x) - var(--indent) - var(--dot) / 2);
+    z-index: 1;
     width: var(--dot);
     height: var(--dot);
-    border: 2px solid var(--color-violet-bright);
+    border: 2px solid var(--color-lavender);
     border-radius: 50%;
     background: var(--color-bg);
-    box-shadow: 0 0 16px var(--color-glow);
+    box-shadow: 0 0 18px var(--color-violet-bright);
   }
 }
 
@@ -66,8 +83,12 @@
 }
 
 .entry__dates {
+  padding: 0.2rem 0.7rem;
+  border: 1px solid var(--color-glass-border);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.03);
   color: var(--color-text-muted);
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   font-variant-numeric: tabular-nums;
 }
 
@@ -92,10 +113,11 @@
       position: absolute;
       top: 0.7em;
       left: 0;
-      width: 0.5rem;
-      height: 0.5rem;
+      width: 0.45rem;
+      height: 0.45rem;
       border-radius: 50%;
       background: var(--color-violet-bright);
+      box-shadow: 0 0 8px var(--color-violet-bright);
     }
   }
 }
