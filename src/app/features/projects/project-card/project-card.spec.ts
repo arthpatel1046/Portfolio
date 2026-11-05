@@ -29,11 +29,16 @@ describe('ProjectCard', () => {
     return fixture.nativeElement as HTMLElement;
   }
 
-  it('shows the title, a generated cover with initials, and every tag', async () => {
+  it('shows the title, the number label, and every tag', async () => {
     const host = await render(PUBLIC_PROJECT);
     expect(host.querySelector('.card__title')?.textContent).toBe('Demo Project');
-    expect(host.querySelector('.card__initials')?.textContent).toBe('DP');
+    expect(host.querySelector('.card__index')?.textContent).toBe('01');
     expect(host.querySelectorAll('.chip').length).toBe(2);
+  });
+
+  it('renders the cover image only when the project has one', async () => {
+    const withoutImage = await render(PUBLIC_PROJECT);
+    expect(withoutImage.querySelector('.card__cover')).toBeNull();
   });
 
   it('opens links safely in a new tab', async () => {
